@@ -56,13 +56,8 @@ const StudentNavbar = () => {
       <div className="container">
         {/* Logo */}
         <NavLink className="navbar-brand d-flex align-items-center" to="/">
-          <img
-            src="/src/assets/scre.png"
-            alt="Logo"
-            className="me-2"
-            style={{ height: "40px" }}
-          />
           <span className="fw-bold">EduHub</span>
+          <sup>BETA</sup>
         </NavLink>
 
         {/* Navbar Toggler for Mobile */}
