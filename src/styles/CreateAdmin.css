@@ -1,0 +1,119 @@
+/* CreateAdmin.css */
+
+/* Main Layout */
+.create-admin-page {
+    padding: 20px;
+    width: calc(100% - 250px);
+    min-height: 100vh;
+    background-color: #f7f7f7;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    flex-direction: column;
+  }
+  
+  /* Form Container */
+  .create-admin-form-container {
+    background-color: #fff;
+    padding: 40px;
+    border-radius: 8px;
+    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
+    width: 100%;
+    max-width: 600px;
+  }
+  
+  .create-admin-heading {
+    text-align: center;
+    font-size: 2rem;
+    font-weight: 600;
+    margin-bottom: 30px;
+    color: #333;
+  }
+  
+  /* Form Elements */
+  .create-admin-form-group {
+    margin-bottom: 20px;
+  }
+  
+  .create-admin-label {
+    font-weight: 500;
+    font-size: 1rem;
+    color: #333;
+  }
+  
+  .create-admin-input {
+    border-radius: 8px;
+    padding: 12px 15px;
+    border: 1px solid #ddd;
+    width: 100%;
+    margin-top: 8px;
+    font-size: 1rem;
+  }
+  
+  .create-admin-input:focus {
+    border-color: #2980b9;
+    box-shadow: 0 0 5px rgba(41, 128, 185, 0.5);
+  }
+  
+  .create-admin-btn {
+    background-color: #2980b9;
+    border: none;
+    color: #fff;
+    padding: 12px 20px;
+    border-radius: 8px;
+    font-size: 1.1rem;
+    width: 100%;
+    cursor: pointer;
+    transition: all 0.3s ease;
+  }
+  
+  .create-admin-btn:hover {
+    background-color: #1abc9c;
+  }
+  
+  .create-admin-btn:focus {
+    outline: none;
+  }
+  
+  /* Alerts */
+  .create-admin-alert {
+    display: flex;
+    align-items: center;
+    border-radius: 8px;
+    padding: 12px;
+    font-size: 1rem;
+  }
+  
+  .create-admin-alert-success {
+    background-color: #2ecc71;
+    color: #fff;
+  }
+  
+  .create-admin-alert-danger {
+    background-color: #e74c3c;
+    color: #fff;
+  }
+  
+  .create-admin-alert-icon {
+    font-size: 1.5rem;
+    margin-right: 10px;
+  }
+  
+  /* Responsive Design */
+  @media (max-width: 768px) {
+    .create-admin-page {
+      margin-left: 0;
+      width: 100%;
+    }
+  
+    .create-admin-form-container {
+      padding: 20px;
+      max-width: 90%;
+    }
+  
+    .create-admin-btn {
+      font-size: 1rem;
+      padding: 10px 15px;
+    }
+  }
+  

@@ -1,0 +1,102 @@
+/* Scoped styles for the Register page */
+.register-container {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    min-height: 100vh;
+    background: linear-gradient(135deg, #6e7aef, #f1a7f1);
+    font-family: 'Roboto', sans-serif;
+  }
+  
+  /* Register card styling */
+  .register-card {
+    background: white;
+    border-radius: 12px;
+    box-shadow: 0 10px 20px rgba(0, 0, 0, 0.1);
+    padding: 30px;
+    width: 100%;
+    max-width: 500px;
+  }
+  
+  /* Card title */
+  .register-title {
+    text-align: center;
+    font-size: 28px;
+    margin-bottom: 20px;
+    color: #333;
+  }
+  
+  /* Flexbox for form rows */
+  .register-form-row {
+    display: flex;
+    gap: 20px;
+    flex-wrap: wrap;
+    justify-content: space-between;
+    margin-bottom: 20px;
+  }
+  
+  .register-form-group {
+    flex: 1;
+    min-width: 200px;
+    margin-bottom: 15px;
+  }
+  
+  .register-form-group label {
+    font-weight: bold;
+    font-size: 14px;
+    color: #555;
+  }
+  
+  .register-form-control {
+    width: 100%;
+    padding: 12px;
+    border: 1px solid #ddd;
+    border-radius: 8px;
+    font-size: 14px;
+    margin-top: 5px;
+    transition: border-color 0.3s;
+  }
+  
+  .register-form-control:focus {
+    border-color: #6e7aef;
+    outline: none;
+  }
+  
+  /* Button styling */
+  .register-btn-primary {
+    background-color: #6e7aef;
+    color: white;
+    padding: 12px;
+    border: none;
+    border-radius: 8px;
+    font-size: 16px;
+    width: 100%;
+    cursor: pointer;
+    transition: background-color 0.3s;
+  }
+  
+  .register-btn-primary:hover {
+    background-color: #4b5ac4;
+  }
+  
+  /* Error and success messages */
+  .register-alert {
+    padding: 10px;
+    border-radius: 8px;
+    margin-top: 15px;
+    font-size: 14px;
+    text-align: center;
+  }
+  
+  .register-alert-danger {
+    color: red;
+    background-color: #f8d7da;
+    border: 1px solid #f5c6cb;
+  }
+  
+  .register-alert-success {
+    color: green;
+    background-color: #d4edda;
+    border: 1px solid #c3e6cb;
+  }
+  

@@ -1,0 +1,106 @@
+@import url('https://fonts.googleapis.com/css2?family=Poppins:ital,wght@0,100;0,200;0,300;0,400;0,500;0,600;0,700;0,800;0,900;1,100;1,200;1,300;1,400;1,500;1,600;1,700;1,800;1,900&display=swap');
+
+*{
+    padding: 0;
+    margin: 0;
+    box-sizing: border-box;
+    font-family: "Poppins", sans-serif;
+    font-weight: 400;
+    font-style: normal;
+}
+
+body{
+    background-color: #EFF1F3;
+}
+.card {
+  border-radius: 8px;
+  transition: transform 0.2s, box-shadow 0.2s;
+}
+
+.card:hover {
+  transform: scale(1.05);
+  box-shadow: 0 4px 15px rgba(0, 0, 0, 0.2);
+}
+
+.card-title {
+  font-weight: bold;
+}
+
+/* Style for active and hover nav links */
+.navbar-nav .nav-item .nav-link.active {
+  background-color: #2D9CDB; /* Light blue background for active link */
+  color: white; /* Text color change */
+  border-radius: 25px; /* Fully rounded corners */
+  padding: 10px 20px; /* Add some padding to make it feel spacious */
+  box-shadow: 0 4px 10px rgba(45, 156, 219, 0.3); /* Soft shadow effect */
+  transition: background-color 0.3s ease, transform 0.3s ease, box-shadow 0.3s ease;
+}
+
+.navbar-nav .nav-item .nav-link.active:hover {
+  background-color: #2196F3; /* Slightly darker blue on hover */
+  transform: scale(1.05); /* Slight zoom effect on hover */
+  box-shadow: 0 6px 12px rgba(45, 156, 219, 0.5); /* Slightly stronger shadow on hover */
+}
+
+/* Hover effect for all links */
+.navbar-nav .nav-item .nav-link:hover {
+  background-color: rgba(45, 156, 219, 0.1); /* Light blue background on hover */
+  color: #2D9CDB; /* Change text color to match the background */
+  border-radius: 25px; /* Fully rounded corners */
+  transform: scale(1.05); /* Slight zoom effect on hover */
+  box-shadow: 0 4px 10px rgba(45, 156, 219, 0.3); /* Soft shadow effect */
+}
+
+/* Profile Image */
+.navbar-nav .nav-item .nav-link img {
+  height: 50px; /* Bigger profile image */
+  width: 50px; /* Keep it round */
+  border: 3px solid #2D9CDB; /* Light blue border */
+  transition: transform 0.3s ease, box-shadow 0.3s ease;
+}
+
+.navbar-nav .nav-item .nav-link img:hover {
+  transform: scale(1.1); /* Slight zoom effect when hovering over the profile image */
+  box-shadow: 0 4px 15px rgba(45, 156, 219, 0.5); /* Shadow on hover */
+}
+
+/* styles.css */
+.profile-card {
+  border: 1px solid #ddd;
+  padding: 20px;
+  border-radius: 8px;
+  max-width: 500px;
+  margin: 20px auto;
+  text-align: center;
+}
+
+.profile-header img.avatar {
+  width: 100px;
+  height: 100px;
+  border-radius: 50%;
+  object-fit: cover;
+}
+
+.profile-header h3 {
+  margin-top: 15px;
+}
+
+.profile-details {
+  margin-top: 20px;
+}
+
+
+@media (max-width: 768px) {
+
+  .card-title{
+    font-size: small;
+  }
+  .card-text{
+    font-size: smaller;
+  }
+  .text-muted,.card-footer,.fileType{
+      display: none !important;
+  }
+  
+}
+

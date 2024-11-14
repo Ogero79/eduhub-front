@@ -1,0 +1,66 @@
+/* Wrapper for the entire dashboard */
+.superadmin-dashboard-wrapper {
+  display: flex;
+  min-height: 100vh;
+  background-color: #f9f9f9;
+}
+
+/* Container for the main dashboard content */
+.superadmin-dashboard-container {
+  flex-grow: 1;
+  padding: 20px;
+}
+
+/* Dashboard title */
+.superadmin-dashboard-title {
+  font-size: 24px;
+  font-weight: bold;
+  margin-bottom: 20px;
+  color: #333;
+}
+
+/* Alert styles */
+.superadmin-alert {
+  padding: 10px 15px;
+  border-radius: 5px;
+}
+
+.superadmin-alert-danger {
+  background-color: #f8d7da;
+  color: #842029;
+}
+
+/* Cards container */
+.superadmin-cards-container {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+  gap: 20px;
+}
+
+/* Individual card styles */
+.superadmin-card {
+  background-color: #fff;
+  border-radius: 10px;
+  box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+  overflow: hidden;
+  transition: transform 0.2s;
+}
+
+.superadmin-card:hover {
+  transform: translateY(-5px);
+}
+
+.superadmin-card-header {
+  background-color: #007bff;
+  color: #fff;
+  padding: 10px 15px;
+  font-size: 16px;
+  font-weight: bold;
+}
+
+.superadmin-card-body {
+  padding: 15px;
+  text-align: center;
+  font-size: 32px;
+  font-weight: bold;
+}
