@@ -24,7 +24,7 @@ const AdminDashboard = () => {
         }
   
         // Send token in the Authorization header
-        const response = await axios.get('http://localhost:5000/admin/dashboard', {
+        const response = await axios.get('https://eduhub-backend-huep.onrender.com/admin/dashboard', {
           headers: {
             Authorization: `Bearer ${token}`, // Attach the JWT to the request
           },

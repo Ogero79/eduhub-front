@@ -22,7 +22,7 @@ const AdminsList = () => {
         }
   
         // Send token in the Authorization header
-        const response = await axios.get('http://localhost:5000/user/check', {
+        const response = await axios.get('https://eduhub-backend-huep.onrender.com/user/check', {
           headers: {
             Authorization: `Bearer ${token}`, // Attach the JWT to the request
           },
@@ -56,7 +56,7 @@ const fetchAdmins = async () => {
     }
 
     // Send token in the Authorization header
-    const response = await axios.get('http://localhost:5000/superadmin/admins', {
+    const response = await axios.get('https://eduhub-backend-huep.onrender.com/superadmin/admins', {
       headers: {
         Authorization: `Bearer ${token}`, // Attach the JWT to the request
       },
@@ -81,7 +81,7 @@ const deleteAdmin = async (id) => {
     }
 
     // Send token in the Authorization header
-    const response = await axios.delete(`http://localhost:5000/superadmin/admins/${id}`, {
+    const response = await axios.delete(`https://eduhub-backend-huep.onrender.com/superadmin/admins/${id}`, {
       headers: {
         Authorization: `Bearer ${token}`, // Attach the JWT to the request
       },

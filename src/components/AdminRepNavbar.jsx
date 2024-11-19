@@ -23,7 +23,7 @@ const AdminRepNavbar = () => {
         }
   
         // Send token in the Authorization header
-        const response = await axios.get("http://localhost:5000/user/check", {
+        const response = await axios.get("https://eduhub-backend-huep.onrender.com/user/check", {
           headers: {
             Authorization: `Bearer ${token}`, // Attach the JWT to the request
           },

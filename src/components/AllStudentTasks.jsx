@@ -94,7 +94,7 @@ const AllStudentPapers = () => {
   
         // Send token in the Authorization header
         const response = await axios.get(
-          "http://localhost:5000/student/all-tasks-resources",
+          "https://eduhub-backend-huep.onrender.com/student/all-tasks-resources",
           {
             headers: {
               Authorization: `Bearer ${token}`, // Attach the JWT to the request
@@ -124,7 +124,7 @@ const AllStudentPapers = () => {
         }
 
         const response = await axios.get(
-          "http://localhost:5000/user/check",
+          "https://eduhub-backend-huep.onrender.com/user/check",
           { headers: { Authorization: `Bearer ${token}` } }
         );
 

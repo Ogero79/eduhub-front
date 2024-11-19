@@ -23,7 +23,7 @@ const Sidebar = () => {
       const checkRole = async () => {
         try {
           const token = localStorage.getItem('token'); // Get the token
-          const response = await axios.get("http://localhost:5000/user/check", {
+          const response = await axios.get("https://eduhub-backend-huep.onrender.com/user/check", {
             headers: {
               Authorization: `Bearer ${token}`, // Attach the JWT token here
             },

@@ -38,7 +38,7 @@ const EditProfile = () => {
         }
   
         // Make the GET request to fetch user profile data, including the token in the Authorization header
-        const response = await axios.get("http://localhost:5000/user/profile", {
+        const response = await axios.get("https://eduhub-backend-huep.onrender.com/user/profile", {
           headers: {
             Authorization: `Bearer ${token}`, // Attach the JWT token to the request
           },
@@ -68,7 +68,7 @@ const EditProfile = () => {
         }
   
         // Verify the user role with the token in the Authorization header
-        const response = await axios.get("http://localhost:5000/user/check", {
+        const response = await axios.get("https://eduhub-backend-huep.onrender.com/user/check", {
           headers: {
             Authorization: `Bearer ${token}`, // Attach the JWT token to the request
           },
@@ -135,7 +135,7 @@ const EditProfile = () => {
       }
   
       // Make the PUT request to update the profile, including the token in the Authorization header
-      await axios.put("http://localhost:5000/user/profile", updatedData, {
+      await axios.put("https://eduhub-backend-huep.onrender.com/user/profile", updatedData, {
         headers: {
           Authorization: `Bearer ${token}`, // Attach the JWT token to the request
         },

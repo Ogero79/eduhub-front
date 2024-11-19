@@ -32,7 +32,7 @@ const AddResource = () => {
         }
 
         // Make request with JWT token in the headers
-        const response = await axios.get('http://localhost:5000/resource-adder/check', {
+        const response = await axios.get('https://eduhub-backend-huep.onrender.com/resource-adder/check', {
           headers: {
             Authorization: `Bearer ${token}`
           }
@@ -91,8 +91,8 @@ const AddResource = () => {
       const token = localStorage.getItem('token'); // Get token from localStorage
 
       const url = role === 'admin' 
-        ? 'http://localhost:5000/admin/add-resource'
-        : 'http://localhost:5000/classrep/add-resource';
+        ? 'https://eduhub-backend-huep.onrender.com/admin/add-resource'
+        : 'https://eduhub-backend-huep.onrender.com/classrep/add-resource';
 
       const response = await axios.post(url, formData, {
         headers: {
