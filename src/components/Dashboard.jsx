@@ -17,30 +17,29 @@ const Dashboard = () => {
     // Fetch user info on mount (check if session is valid)
     const fetchUserInfo = async () => {
       try {
-        // Retrieve the JWT token from localStorage (or sessionStorage)
-        const token = localStorage.getItem('token'); // Or sessionStorage if needed
+        // Retrieve JWT from localStorage (or sessionStorage depending on where you store it)
+        const token = localStorage.getItem('token'); // Change this to sessionStorage if using session storage
   
-        // If token is missing, set an error and redirect to login
+        // If token doesn't exist, redirect to login
         if (!token) {
           setError('Please log in to view the dashboard.');
           navigate('/login');
           return;
         }
   
-        // Make the GET request to fetch user info, including the token in the Authorization header
+        // Send token in the Authorization header
         const response = await axios.get('https://eduhub-backend-huep.onrender.com/dashboard', {
           headers: {
-            Authorization: `Bearer ${token}`, // Attach the JWT token to the request
+            Authorization: `Bearer ${token}`, // Attach the JWT to the request
           },
-          withCredentials: true, // Ensure cookies are sent with the request
         });
   
-        // Set the user info based on the response
-        setMessage(response.data.message);
+        // Assuming response contains the message with the user's first name
         setFirstName(response.data.message.split(',')[1].trim()); // Extract first name from the server response
+        setMessage(response.data.message); 
       } catch (err) {
         setError('Please log in to view the dashboard.');
-        navigate('/login'); // Redirect to login if not authorized
+        navigate('/login'); // Redirect to login if not authorized or token is invalid
       }
     };
   
