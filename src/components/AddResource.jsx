@@ -65,11 +65,30 @@ const AddResource = () => {
     checkRole();
   }, [navigate]);
 
-  const handleSubmit = async (e) => {
+const handleSubmit = async (e) => {
     e.preventDefault();
-
+  
     const formattedUnitCode = unitCode.toUpperCase();
-
+  
+    // Define allowed file types and max file size (in bytes)
+    const allowedTypes = ['image/jpeg', 'image/png', 'application/pdf', 'application/msword', 'application/vnd.openxmlformats-officedocument.wordprocessingml.document']; // Add other allowed types if needed
+    const maxFileSize = 10 * 1024 * 1024; // 10MB in bytes
+  
+    // Check if file is selected and if it's of allowed type and within size limit
+    if (file) {
+      if (!allowedTypes.includes(file.type)) {
+        setError('Invalid file type. Only JPG, PNG, PDF, and DOCX files are allowed.');
+        setSuccessMessage('');
+        return;
+      }
+  
+      if (file.size > maxFileSize) {
+        setError('File size exceeds 10MB limit.');
+        setSuccessMessage('');
+        return;
+      }
+    }
+  
     const formData = new FormData();
     formData.append('title', title);
     formData.append('description', description);
@@ -78,29 +97,30 @@ const AddResource = () => {
     formData.append('course', course);
     formData.append('unitCode', formattedUnitCode);
     formData.append('resourceType', resourceType);
+    
     if (file) {
       formData.append('file', file);
     }
-
+  
     // Log classRep details to console
     if (role === 'classRep') {
       console.log('ClassRep Details:', { year, semester, course });
     }
-
+  
     try {
       const token = localStorage.getItem('token'); // Get token from localStorage
-
+  
       const url = role === 'admin' 
         ? 'https://eduhub-backend-huep.onrender.com/admin/add-resource'
         : 'https://eduhub-backend-huep.onrender.com/classrep/add-resource';
-
+  
       const response = await axios.post(url, formData, {
         headers: {
           'Content-Type': 'multipart/form-data',
           Authorization: `Bearer ${token}` // Attach token to headers
         }
       });
-
+  
       setSuccessMessage(response.data.message);
       setError('');
       
@@ -120,6 +140,7 @@ const AddResource = () => {
       setSuccessMessage('');
     }
   };
+  
 
   return (
     <>
