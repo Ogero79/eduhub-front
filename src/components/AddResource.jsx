@@ -102,10 +102,6 @@ const handleSubmit = async (e) => {
       formData.append('file', file);
     }
   
-    // Log classRep details to console
-    if (role === 'classRep') {
-      console.log('ClassRep Details:', { year, semester, course });
-    }
   
     try {
       const token = localStorage.getItem('token'); // Get token from localStorage
