@@ -46,7 +46,6 @@ const AddResource = () => {
           setYear(year); // Auto-fill year for classRep
           setSemester(semester); // Auto-fill semester for classRep
           setCourse(course); // Auto-fill course for classRep
-          console.log('ClassRep Details:', { role, semester, course });
         }
 
         if (role === 'admin' && window.location.pathname.includes('/classrep')) {
