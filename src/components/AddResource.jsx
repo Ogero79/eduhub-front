@@ -1,21 +1,21 @@
-import React, { useState, useEffect, useRef } from 'react';
-import axios from 'axios';
-import { useNavigate } from 'react-router-dom';
-import { courses, years, semesters, resourceTypes } from '../utils/constants';
-import AdminRepNavbar from './AdminRepNavbar';
+import React, { useState, useEffect, useRef } from "react";
+import axios from "axios";
+import { useNavigate } from "react-router-dom";
+import { courses, years, semesters, resourceTypes } from "../utils/constants";
+import AdminRepNavbar from "./AdminRepNavbar";
 
 const AddResource = () => {
-  const [title, setTitle] = useState('');
-  const [description, setDescription] = useState('');
-  const [year, setYear] = useState('');
-  const [semester, setSemester] = useState('');
-  const [course, setCourse] = useState('');
-  const [unitCode, setUnitCode] = useState('');
-  const [resourceType, setResourceType] = useState('');
+  const [title, setTitle] = useState("");
+  const [description, setDescription] = useState("");
+  const [year, setYear] = useState("");
+  const [semester, setSemester] = useState("");
+  const [course, setCourse] = useState("");
+  const [unitCode, setUnitCode] = useState("");
+  const [resourceType, setResourceType] = useState("");
   const [file, setFile] = useState(null);
-  const [successMessage, setSuccessMessage] = useState('');
-  const [error, setError] = useState('');
-  const [role, setRole] = useState('');
+  const [successMessage, setSuccessMessage] = useState("");
+  const [error, setError] = useState("");
+  const [role, setRole] = useState("");
   const fileInputRef = useRef(null);
   const navigate = useNavigate();
 
@@ -23,129 +23,139 @@ const AddResource = () => {
     const checkRole = async () => {
       try {
         // Get the JWT token from localStorage
-        const token = localStorage.getItem('token');
-        
+        const token = localStorage.getItem("token");
+
         if (!token) {
-          setError('No authentication token found');
-          navigate('/login');
+          setError("No authentication token found");
+          navigate("/login");
           return;
         }
 
         // Make request with JWT token in the headers
-        const response = await axios.get('https://eduhub-backend-huep.onrender.com/resource-adder/check', {
-          headers: {
-            Authorization: `Bearer ${token}`
+        const response = await axios.get(
+          "https://eduhub-backend-huep.onrender.com/resource-adder/check",
+          {
+            headers: {
+              Authorization: `Bearer ${token}`,
+            },
           }
-        });
+        );
 
         const { role, year, semester, course } = response.data;
 
         setRole(role);
 
-        if (role === 'classRep') {
+        if (role === "classRep") {
           setYear(year); // Auto-fill year for classRep
           setSemester(semester); // Auto-fill semester for classRep
           setCourse(course); // Auto-fill course for classRep
         }
 
-        if (role === 'admin' && window.location.pathname.includes('/classrep')) {
-          navigate('/admin/dashboard');
-        } else if (role === 'classRep' && window.location.pathname.includes('/admin')) {
-          navigate('/classrep/dashboard');
-        } else if (role !== 'admin' && role !== 'classRep') {
-          navigate('/login');
+        if (
+          role === "admin" &&
+          window.location.pathname.includes("/classrep")
+        ) {
+          navigate("/admin/dashboard");
+        } else if (
+          role === "classRep" &&
+          window.location.pathname.includes("/admin")
+        ) {
+          navigate("/classrep/dashboard");
+        } else if (role !== "admin" && role !== "classRep") {
+          navigate("/login");
         }
       } catch (err) {
-        setError('Error verifying user role or user is not logged in');
+        setError("Error verifying user role or user is not logged in");
         console.error(err);
-        navigate('/login');
+        navigate("/login");
       }
     };
     checkRole();
   }, [navigate]);
 
-const handleSubmit = async (e) => {
+  const handleSubmit = async (e) => {
     e.preventDefault();
-  
+
     const formattedUnitCode = unitCode.toUpperCase();
-  
+
     // Define allowed file types and max file size (in bytes)
-// Add other allowed types if needed
-const allowedTypes = [
-  'image/jpeg', // JPEG image
-  'image/png',  // PNG image
-  'application/pdf', // PDF file
-  'application/msword', // Microsoft Word (DOC)
-  'application/vnd.openxmlformats-officedocument.wordprocessingml.document', // Microsoft Word (DOCX)
-  'application/vnd.ms-excel', // Excel (XLS)
-  'application/vnd.openxmlformats-officedocument.spreadsheetml.sheet', // Excel (XLSX)
-  'application/vnd.ms-powerpoint', // PowerPoint (PPT)
-  'application/vnd.openxmlformats-officedocument.presentationml.presentation', // PowerPoint (PPTX)
-  'text/plain', // Plain text files (TXT)
-];
+    // Add other allowed types if needed
+    const allowedTypes = [
+      "image/jpeg", // JPEG image
+      "image/png", // PNG image
+      "application/pdf", // PDF file
+      "application/msword", // Microsoft Word (DOC)
+      "application/vnd.openxmlformats-officedocument.wordprocessingml.document", // Microsoft Word (DOCX)
+      "application/vnd.ms-excel", // Excel (XLS)
+      "application/vnd.openxmlformats-officedocument.spreadsheetml.sheet", // Excel (XLSX)
+      "application/vnd.ms-powerpoint", // PowerPoint (PPT)
+      "application/vnd.openxmlformats-officedocument.presentationml.presentation", // PowerPoint (PPTX)
+      "text/plain", // Plain text files (TXT)
+    ];
 
     const maxFileSize = 10 * 1024 * 1024; // 10MB in bytes
-  
+
     // Check if file is selected and if it's of allowed type and within size limit
     if (file) {
       if (!allowedTypes.includes(file.type)) {
-        setError('Invalid file type. Only JPG, PNG, PDF, and DOCX files are allowed.');
-        setSuccessMessage('');
+        setError(
+          "Invalid file type. Only JPG, PNG, PDF, and DOCX files are allowed."
+        );
+        setSuccessMessage("");
         return;
       }
-  
+
       if (file.size > maxFileSize) {
-        setError('File size exceeds 10MB limit.');
-        setSuccessMessage('');
+        setError("File size exceeds 10MB limit.");
+        setSuccessMessage("");
         return;
       }
     }
-  
+
     const formData = new FormData();
-    formData.append('title', title);
-    formData.append('description', description);
-    formData.append('year', year);
-    formData.append('semester', semester);
-    formData.append('course', course);
-    formData.append('unitCode', formattedUnitCode);
-    formData.append('resourceType', resourceType);
-    
+    formData.append("title", title);
+    formData.append("description", description);
+    formData.append("year", year);
+    formData.append("semester", semester);
+    formData.append("course", course);
+    formData.append("unitCode", formattedUnitCode);
+    formData.append("resourceType", resourceType);
+
     if (file) {
-      formData.append('file', file);
+      formData.append("file", file);
     }
-  
-  
+
     try {
-      const token = localStorage.getItem('token'); // Get token from localStorage
-  
-      const url = role === 'admin' 
-        ? 'https://eduhub-backend-huep.onrender.com/admin/add-resource'
-        : 'https://eduhub-backend-huep.onrender.com/classrep/add-resource';
-  
+      const token = localStorage.getItem("token"); // Get token from localStorage
+
+      const url =
+        role === "admin"
+          ? "https://eduhub-backend-huep.onrender.com/admin/add-resource"
+          : "https://eduhub-backend-huep.onrender.com/classrep/add-resource";
+
       const response = await axios.post(url, formData, {
         headers: {
-          'Content-Type': 'multipart/form-data',
-          Authorization: `Bearer ${token}` // Attach token to headers
-        }
+          "Content-Type": "multipart/form-data",
+          Authorization: `Bearer ${token}`, // Attach token to headers
+        },
       });
-  
+
       setSuccessMessage(response.data.message);
-      setError('');
-      
-      setTitle('');
-      setDescription('');
-      setUnitCode('');
-      setResourceType('');
+      setError("");
+
+      setTitle("");
+      setDescription("");
+      setUnitCode("");
+      setResourceType("");
       setFile(null);
       if (fileInputRef.current) {
-        fileInputRef.current.value = '';
+        fileInputRef.current.value = "";
       }
     } catch (err) {
-      setError('Failed to add resource. Please try again.');
-      setSuccessMessage('');
+      setError("Failed to add resource. Please try again.");
+      setSuccessMessage("");
     }
   };
-  
 
   return (
     <>
@@ -153,7 +163,9 @@ const allowedTypes = [
       <div className="container">
         <h2>Add Resource</h2>
 
-        {successMessage && <div className="alert alert-success">{successMessage}</div>}
+        {successMessage && (
+          <div className="alert alert-success">{successMessage}</div>
+        )}
         {error && <div className="alert alert-danger">{error}</div>}
 
         <form onSubmit={handleSubmit}>
@@ -186,7 +198,7 @@ const allowedTypes = [
               value={year}
               onChange={(e) => setYear(e.target.value)}
               required
-              disabled={role === 'classRep'} // Disable if classRep
+              disabled={role === "classRep"} // Disable if classRep
             >
               <option value="">Select Year</option>
               {years.map((year) => (
@@ -204,7 +216,7 @@ const allowedTypes = [
               value={semester}
               onChange={(e) => setSemester(e.target.value)}
               required
-              disabled={role === 'classRep'} // Disable if classRep
+              disabled={role === "classRep"} // Disable if classRep
             >
               <option value="">Select Semester</option>
               {semesters.map((semester) => (
@@ -222,7 +234,7 @@ const allowedTypes = [
               value={course}
               onChange={(e) => setCourse(e.target.value)}
               required
-              disabled={role === 'classRep'} // Disable if classRep
+              disabled={role === "classRep"} // Disable if classRep
             >
               <option value="">Select Course</option>
               {courses.map((course, index) => (
@@ -266,7 +278,7 @@ const allowedTypes = [
             <input
               type="file"
               className="form-control"
-              ref={fileInputRef} 
+              ref={fileInputRef}
               onChange={(e) => setFile(e.target.files[0])}
             />
           </div>
