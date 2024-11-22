@@ -4,12 +4,7 @@ import axios from 'axios';
 import { NavLink, useNavigate } from "react-router-dom";
 
 const StudentNavbar = () => {
-
-  const navigate = useNavigate();  // Hook to navigate programmatically
-  const [error, setError] = useState('');
-  const [role, setRole] = useState(null); 
-  
-
+ 
   // Handle logout
     const handleLogout = () => {
       // Remove the token from localStorage (or sessionStorage/cookies)
@@ -18,38 +13,6 @@ const StudentNavbar = () => {
       // Optionally, you can redirect the user to the login page
       window.location.href = "/login"; // Or use navigate('/login') if using React Router
     };
-    
-  
-  useEffect(() => {
-    const checkRole = async () => {
-      try {
-        const token = localStorage.getItem('token'); // Get the token
-        const response = await axios.get("https://eduhub-backend-huep.onrender.com/user/check", {
-          headers: {
-            Authorization: `Bearer ${token}`, // Attach the JWT token here
-          },
-          withCredentials: true, // Ensure session cookies are sent
-        });
-        setRole(response.data.role); // Set the role from the server response
-        if (response.data.role !== "student") {
-          navigate("/login"); // If not a student, redirect to login page
-        }
-      } catch (err) {
-        setError("Error verifying user role or user is not a student");
-        console.error(err);
-        navigate("/login"); // Redirect to login if the request fails
-      }
-    };
-  
-    // Call checkRole to verify the session
-    checkRole();
-  }, [navigate]);
-  
-
-  // If user role is not admin or classRep, don't display the navbar
-  if (role !== "student") {
-    return null;
-  }
 
   return (
 <nav className="navbar navbar-expand-lg navbar-light bg-light shadow-sm mb-4">
