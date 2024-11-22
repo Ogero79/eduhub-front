@@ -125,7 +125,7 @@ const ContactUs = () => {
 
                   {/* LinkedIn */}
                   <a
-                    href="https://linkedin.com/in/yourprofile"
+                    href="https://linkedin.com/in/brian-ogero-07739526a"
                     target="_blank"
                     rel="noopener noreferrer"
                     className="social-icon mx-3 mb-3"
