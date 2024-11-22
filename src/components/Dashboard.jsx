@@ -6,12 +6,14 @@ import RecentResources from './RecentResources';
 import NotesResources from './NotesResources';
 import PapersResources from './PapersResources';
 import TasksResources from './TasksResources';
+import { Card, Button, Spinner } from 'react-bootstrap';
 
 const Dashboard = () => {
   const [firstName, setFirstName] = useState('');
   const [error, setError] = useState('');
   const navigate = useNavigate();
   const [message, setMessage] = useState('');
+  const [loading, setLoading] = useState(true);
 
   useEffect(() => {
     // Fetch user info on mount (check if session is valid)
@@ -40,11 +42,21 @@ const Dashboard = () => {
       } catch (err) {
         setError('Please log in to view the dashboard.');
         navigate('/login'); // Redirect to login if not authorized or token is invalid
+      } finally {
+        setLoading(false); // Stop loading once the request is complete
       }
     };
   
     fetchUserInfo();
   }, [navigate]);
+
+  if (loading) {
+    return (
+      <div className="d-flex justify-content-center align-items-center" style={{ height: "100vh" }}>
+        <Spinner animation="border" variant="primary" />
+      </div>
+    ); // Display loading spinner while data is being fetched
+  }
   
   return (
     <>

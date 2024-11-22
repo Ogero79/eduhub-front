@@ -3,6 +3,7 @@ import { useNavigate } from "react-router-dom";
 import axios from "axios";
 import moment from "moment";
 import StudentNavbar from "./StudentNavbar";
+import { Card, Button, Spinner } from 'react-bootstrap';
 
 // Style functions (same as before)
 const getCardStyle = (resourceType) => {
@@ -61,6 +62,7 @@ const AllStudentPapers = () => {
   const [error, setError] = useState("");
   const navigate = useNavigate();
   const [resources, setResources] = useState([]);
+  const [loading, setLoading] = useState(true);
 
   // State to handle screen width (for small screen detection)
   const [isSmallScreen, setIsSmallScreen] = useState(false);
@@ -106,6 +108,8 @@ const AllStudentPapers = () => {
       } catch (error) {
         console.error("Error fetching resources:", error);
         setError("Error fetching resources");
+      } finally {
+        setLoading(false); // Stop loading once the request is complete
       }
     };
   
@@ -160,6 +164,14 @@ const AllStudentPapers = () => {
       a.click();
     }
   };
+
+  if (loading) {
+    return (
+      <div className="d-flex justify-content-center align-items-center" style={{ height: "100vh" }}>
+        <Spinner animation="border" variant="primary" />
+      </div>
+    ); // Display loading spinner while data is being fetched
+  }
 
   return (
     <>
