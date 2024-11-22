@@ -16,6 +16,7 @@ const AddResource = () => {
   const [successMessage, setSuccessMessage] = useState('');
   const [error, setError] = useState('');
   const [role, setRole] = useState('');
+  const [progress, setProgress] = useState(0); // State for progress bar
   const fileInputRef = useRef(null);
   const navigate = useNavigate();
 
@@ -126,12 +127,19 @@ const allowedTypes = [
         headers: {
           'Content-Type': 'multipart/form-data',
           Authorization: `Bearer ${token}` // Attach token to headers
-        }
+        },
+        onUploadProgress: (progressEvent) => {
+          const percentCompleted = Math.round((progressEvent.loaded * 100) / progressEvent.total);
+          setProgress(percentCompleted);
+        },
       });
   
       setSuccessMessage(response.data.message);
-      setError('');
+
+      setTimeout(() => setSuccessMessage(''), 3000); // Clear success message after 3 seconds
       
+      setError('');
+      setProgress(0); // Reset progress
       setTitle('');
       setDescription('');
       setUnitCode('');
@@ -152,10 +160,6 @@ const allowedTypes = [
       <AdminRepNavbar />
       <div className="container">
         <h2>Add Resource</h2>
-
-        {successMessage && <div className="alert alert-success">{successMessage}</div>}
-        {error && <div className="alert alert-danger">{error}</div>}
-
         <form onSubmit={handleSubmit}>
           <div className="form-group">
             <label>Title</label>
@@ -270,7 +274,23 @@ const allowedTypes = [
               onChange={(e) => setFile(e.target.files[0])}
             />
           </div>
+          {successMessage && <div className="alert alert-success">{successMessage}</div>}
+          {error && <div className="alert alert-danger">{error}</div>}
 
+          {progress > 0 && (
+          <div className="progress mb-3">
+            <div
+              className="progress-bar"
+              role="progressbar"
+              style={{ width: `${progress}%` }}
+              aria-valuenow={progress}
+              aria-valuemin="0"
+              aria-valuemax="100"
+            >
+              {progress}%
+            </div>
+          </div>
+        )}
           <button type="submit" className="btn btn-primary mt-3">
             Add Resource
           </button>
