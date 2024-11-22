@@ -127,7 +127,17 @@ const RecentResources = () => {
       const a = document.createElement("a");
       a.href = resource.file_url;
       a.download = resource.file_url.split('/').pop();;
-      a.click();
+      a.target = "_blank"; // This ensures that the file will open in a new tab first, and then trigger the download
+
+// Check if the file is a PDF and handle it differently
+if (resource.file_url.endsWith('.pdf')) {
+  // Force download of the PDF by clicking the link
+  a.setAttribute('download', resource.file_url.split('/').pop()); // Set the download attribute explicitly
+  a.click();
+} else {
+  // For other file types, simply open them in a new tab
+  window.open(a.href, '_blank');
+}
     }
   };
 
