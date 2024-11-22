@@ -121,9 +121,9 @@ const handleSubmit = async (e) => {
       
       setTitle('');
       setDescription('');
-      setYear('');
-      setSemester('');
-      setCourse('');
+      setYear({year});
+      setSemester({semester});
+      setCourse({course});
       setUnitCode('');
       setResourceType('');
       setFile(null);
