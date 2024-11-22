@@ -79,7 +79,6 @@ const AddResource = () => {
     const formattedUnitCode = unitCode.toUpperCase();
 
     // Define allowed file types and max file size (in bytes)
-    // Add other allowed types if needed
     const allowedTypes = [
       "image/jpeg", // JPEG image
       "image/png", // PNG image
