@@ -70,7 +70,20 @@ const handleSubmit = async (e) => {
     const formattedUnitCode = unitCode.toUpperCase();
   
     // Define allowed file types and max file size (in bytes)
-    const allowedTypes = ['image/jpeg', 'image/png', 'application/pdf', 'application/msword', 'application/vnd.openxmlformats-officedocument.wordprocessingml.document']; // Add other allowed types if needed
+// Add other allowed types if needed
+const allowedTypes = [
+  'image/jpeg', // JPEG image
+  'image/png',  // PNG image
+  'application/pdf', // PDF file
+  'application/msword', // Microsoft Word (DOC)
+  'application/vnd.openxmlformats-officedocument.wordprocessingml.document', // Microsoft Word (DOCX)
+  'application/vnd.ms-excel', // Excel (XLS)
+  'application/vnd.openxmlformats-officedocument.spreadsheetml.sheet', // Excel (XLSX)
+  'application/vnd.ms-powerpoint', // PowerPoint (PPT)
+  'application/vnd.openxmlformats-officedocument.presentationml.presentation', // PowerPoint (PPTX)
+  'text/plain', // Plain text files (TXT)
+];
+
     const maxFileSize = 10 * 1024 * 1024; // 10MB in bytes
   
     // Check if file is selected and if it's of allowed type and within size limit
