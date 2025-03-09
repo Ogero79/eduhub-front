@@ -145,7 +145,7 @@ const UnitDetails = () => {
   
   const handleAddResource = async () => {
     if (!newResource.file || !newResource.title) {
-      alert("Please select a file to upload.");
+      alert("File and Title must be provided.");
       return;
     }
   
@@ -261,6 +261,10 @@ const UnitDetails = () => {
     }
   };
 
+  const handleClick = (unitId) => {
+    setLoading(true);
+    navigate(`/unit/${unitId}`);
+  };
   if (loading) {
     return (
       <div
@@ -310,7 +314,7 @@ const UnitDetails = () => {
       .map((u) => (
         <Dropdown.Item
           key={u.unit_id}
-          onClick={() => navigate(`/unit/${u.unit_id}`)}
+          onClick={() => handleClick(u.unit_id)}
         >
           {u.unit_code}
         </Dropdown.Item>
