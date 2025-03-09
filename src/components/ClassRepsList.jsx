@@ -120,14 +120,6 @@ const ClassRepsList = () => {
                 <td>{rep.course}</td>
                 <td>{rep.year}</td>
                 <td>{rep.semester}</td>
-                <td>
-                    <button
-                      className="btn btn-danger btn-sm"
-                      onClick={() => deleteClassRep(rep.id)} // Trigger the delete on button click
-                    >
-                      Delete
-                    </button>
-                  </td>
               </tr>
             ))}
           </tbody>

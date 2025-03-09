@@ -297,21 +297,24 @@ const UnitDetails = () => {
           </div>
         </Nav.Item>
         <Nav.Item>
-          <Dropdown>
-            <Dropdown.Toggle variant="outline-primary">
-              {unit?.unit_code || "Select Unit"}
-            </Dropdown.Toggle>
-            <Dropdown.Menu>
-              {units.map((u) => (
-                <Dropdown.Item
-                  key={u.unit_id}
-                  onClick={() => navigate(`/unit/${u.unit_id}`)}
-                >
-                  {u.unit_code}
-                </Dropdown.Item>
-              ))}
-            </Dropdown.Menu>
-          </Dropdown>
+        <Dropdown>
+  <Dropdown.Toggle variant="outline-primary">
+    {unit?.unit_code || "Select Unit"}
+  </Dropdown.Toggle>
+  <Dropdown.Menu>
+    {units
+      .sort((a, b) => a.unit_code.localeCompare(b.unit_code)) // Sort units alphabetically by unit_code
+      .map((u) => (
+        <Dropdown.Item
+          key={u.unit_id}
+          onClick={() => navigate(`/unit/${u.unit_id}`)}
+        >
+          {u.unit_code}
+        </Dropdown.Item>
+      ))}
+  </Dropdown.Menu>
+</Dropdown>
+
         </Nav.Item>
       </Nav>
 
