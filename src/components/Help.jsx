@@ -18,7 +18,7 @@ const Help = () => {
           navigate("/login");
           return;
         }
-        const response = await axios.get("http://localhost:5000/dashboard", {
+        const response = await axios.get("https://eduhub-backend-huep.onrender.com/dashboard", {
           headers: { Authorization: `Bearer ${token}` },
         });
         const { id } = response.data;
@@ -42,7 +42,7 @@ const Help = () => {
   
     try {
       const response = await axios.post(
-        'http://localhost:5000/support-messages',
+        'https://eduhub-backend-huep.onrender.com/support-messages',
         { userId, email, message },
         {
           headers: { Authorization: `Bearer ${token}` },

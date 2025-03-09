@@ -52,10 +52,10 @@ const UnitDetails = () => {
         if (!token) return navigate("/login");
   
         const [userResponse, unitResponse] = await Promise.all([
-          axios.get("http://localhost:5000/dashboard", {
+          axios.get("https://eduhub-backend-huep.onrender.com/dashboard", {
             headers: { Authorization: `Bearer ${token}` },
           }),
-          axios.get(`http://localhost:5000/units/details/${unitId}`),
+          axios.get(`https://eduhub-backend-huep.onrender.com/units/details/${unitId}`),
         ]);
   
         const { role, year, semester, courseId } = userResponse.data;
@@ -81,7 +81,7 @@ const UnitDetails = () => {
     const fetchUnits = async () => {
       try {
         const response = await axios.get(
-          `http://localhost:5000/units/${courseId}?year=${year}&semester=${semester}`
+          `https://eduhub-backend-huep.onrender.com/units/${courseId}?year=${year}&semester=${semester}`
         );
         setUnits(response.data);
       } catch (error) {
@@ -98,10 +98,10 @@ const UnitDetails = () => {
       if (!token) return navigate("/login");
   
       const [userResponse, unitResponse] = await Promise.all([
-        axios.get("http://localhost:5000/dashboard", {
+        axios.get("https://eduhub-backend-huep.onrender.com/dashboard", {
           headers: { Authorization: `Bearer ${token}` },
         }),
-        axios.get(`http://localhost:5000/units/details/${unitId}`),
+        axios.get(`https://eduhub-backend-huep.onrender.com/units/details/${unitId}`),
       ]);
   
       const { role, year, semester, courseId } = userResponse.data;
@@ -129,7 +129,7 @@ const UnitDetails = () => {
       };
   
       const response = await axios.put(
-        `http://localhost:5000/units/${unitId}`,
+        `https://eduhub-backend-huep.onrender.com/units/${unitId}`,
         updatedUnitData
       );
   
@@ -164,7 +164,7 @@ const UnitDetails = () => {
       setUploading(true);
       setUploadProgress(0);
   
-      await axios.post("http://localhost:5000/resources", formData, {
+      await axios.post("https://eduhub-backend-huep.onrender.com/resources", formData, {
         headers: {
           "Content-Type": "multipart/form-data",
           Authorization: `Bearer ${localStorage.getItem("token")}`,
@@ -196,7 +196,7 @@ const UnitDetails = () => {
     );
     if (!confirmDelete) return;
     try {
-      await axios.delete(`http://localhost:5000/units/${unitId}`);
+      await axios.delete(`https://eduhub-backend-huep.onrender.com/units/${unitId}`);
       alert("Unit deleted successfully!");
       navigate("/student/units");
     } catch (error) {
@@ -216,7 +216,7 @@ const UnitDetails = () => {
         return navigate("/login");
       }
   
-      await axios.delete(`http://localhost:5000/resources/${resourceId}`, {
+      await axios.delete(`https://eduhub-backend-huep.onrender.com/resources/${resourceId}`, {
         headers: { Authorization: `Bearer ${token}` },
       });
   

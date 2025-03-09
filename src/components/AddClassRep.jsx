@@ -19,7 +19,7 @@ const AddClassRep = () => {
           return;
         }
 
-        const response = await axios.get('http://localhost:5000/user/check', {
+        const response = await axios.get('https://eduhub-backend-huep.onrender.com/user/check', {
           headers: { Authorization: `Bearer ${token}` },
         });
 
@@ -40,7 +40,7 @@ const AddClassRep = () => {
     try {
       const token = localStorage.getItem('token');
       const response = await axios.post(
-        'http://localhost:5000/superadmin/assign-class-rep',
+        'https://eduhub-backend-huep.onrender.com/superadmin/assign-class-rep',
         { email },
         { headers: { Authorization: `Bearer ${token}` } }
       );

@@ -18,7 +18,7 @@ const AddPost = () => {
           navigate("/login");
           return;
         }
-        const response = await axios.get("http://localhost:5000/dashboard", {
+        const response = await axios.get("https://eduhub-backend-huep.onrender.com/dashboard", {
           headers: { Authorization: `Bearer ${token}` },
         });
         setRole(response.data.role);

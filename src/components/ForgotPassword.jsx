@@ -47,7 +47,7 @@ const ForgotPassword = () => {
     setError('');
 
     try {
-      await axios.post('http://localhost:5000/forgot-password', { email });
+      await axios.post('https://eduhub-backend-huep.onrender.com/forgot-password', { email });
       setMessage('A password reset link has been sent to your email.');
       localStorage.setItem('resetEmailSentTime', Date.now().toString());
       setResendDisabled(true);

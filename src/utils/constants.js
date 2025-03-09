@@ -23,7 +23,7 @@ export const useCourses = () => {
 useEffect(() => {
   const fetchCourses = async () => {
     try {
-      const response = await fetch('http://localhost:5000/courses');
+      const response = await fetch('https://eduhub-backend-huep.onrender.com/courses');
       if (!response.ok) {
         throw new Error('Failed to fetch courses');
       }

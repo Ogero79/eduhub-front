@@ -18,7 +18,7 @@ const CoursePage = () => {
 
   const fetchCourses = async () => {
     try {
-      const response = await axios.get("http://localhost:5000/courses");
+      const response = await axios.get("https://eduhub-backend-huep.onrender.com/courses");
       setCourses(response.data);
     } catch (err) {
       setError("Failed to fetch courses");
@@ -28,7 +28,7 @@ const CoursePage = () => {
   const handleAddCourse = async () => {
     if (!newCourseName) return;
     try {
-      const response = await axios.post("http://localhost:5000/courses", { course_name: newCourseName });
+      const response = await axios.post("https://eduhub-backend-huep.onrender.com/courses", { course_name: newCourseName });
       setCourses([...courses, response.data]);
       setSuccessMessage("Course added successfully");
       setShowModal(false);
@@ -41,7 +41,7 @@ const CoursePage = () => {
   const handleEditCourse = async () => {
     if (!newCourseName || !selectedCourse) return;
     try {
-      await axios.put(`http://localhost:5000/courses/${selectedCourse.course_id}`, { course_name: newCourseName });
+      await axios.put(`https://eduhub-backend-huep.onrender.com/courses/${selectedCourse.course_id}`, { course_name: newCourseName });
       setCourses(courses.map(course => course.course_id === selectedCourse.course_id ? { ...course, course_name: newCourseName } : course));
       setSuccessMessage("Course updated successfully");
       setShowModal(false);
@@ -54,7 +54,7 @@ const CoursePage = () => {
 
   const handleDeleteCourse = async (course_id) => {
     try {
-      await axios.delete(`http://localhost:5000/courses/${course_id}`);
+      await axios.delete(`https://eduhub-backend-huep.onrender.com/courses/${course_id}`);
       setCourses(courses.filter(course => course.course_id !== course_id));
       setSuccessMessage("Course deleted successfully");
     } catch (err) {

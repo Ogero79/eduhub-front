@@ -58,7 +58,7 @@ const ResetPassword = () => {
     setShowResend(false);
 
     try {
-      await axios.post(`http://localhost:5000/reset-password/${token}`, { password });
+      await axios.post(`https://eduhub-backend-huep.onrender.com/reset-password/${token}`, { password });
       setMessage('Password reset successful. Redirecting to login...');
       setTimeout(() => navigate('/login'), 3000);
     } catch (err) {
@@ -81,7 +81,7 @@ const ResetPassword = () => {
     setMessage('');
 
     try {
-      await axios.post(`http://localhost:5000/resend-reset-link`, { token });
+      await axios.post(`https://eduhub-backend-huep.onrender.com/resend-reset-link`, { token });
       setMessage('A new reset link has been sent to your email.');
       setShowResend(false);
       setResendDisabled(true);

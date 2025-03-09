@@ -30,7 +30,7 @@ const EditProfile = () => {
           return;
         }
 
-        const response = await axios.get("http://localhost:5000/user/profile", {
+        const response = await axios.get("https://eduhub-backend-huep.onrender.com/user/profile", {
           headers: {
             Authorization: `Bearer ${token}`,
           },
@@ -80,7 +80,7 @@ const EditProfile = () => {
       }
 
       const response = await axios.put(
-        "http://localhost:5000/user/profile",
+        "https://eduhub-backend-huep.onrender.com/user/profile",
         { ...formData, firstName, lastName },
         {
           headers: {

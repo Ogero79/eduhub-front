@@ -26,7 +26,7 @@ const Account = () => {
           navigate("/login");
           return;
         }
-        const response = await axios.get("http://localhost:5000/dashboard", {
+        const response = await axios.get("https://eduhub-backend-huep.onrender.com/dashboard", {
           headers: { Authorization: `Bearer ${token}` },
         });
         const { id } = response.data;
@@ -56,7 +56,7 @@ const Account = () => {
 
     try {
       const response = await axios.put(
-        `http://localhost:5000/students/${studentId}/change-password`,
+        `https://eduhub-backend-huep.onrender.com/students/${studentId}/change-password`,
         {
           currentPassword,
           newPassword,
@@ -85,7 +85,7 @@ const Account = () => {
 
     try {
       const response = await axios.delete(
-        `http://localhost:5000/superadmin/students/${studentId}`,
+        `https://eduhub-backend-huep.onrender.com/superadmin/students/${studentId}`,
         {},
         {
           headers: { Authorization: `Bearer ${token}` },

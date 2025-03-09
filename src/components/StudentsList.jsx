@@ -12,7 +12,7 @@ const StudentsList = () => {
     const checkRole = async () => {
       try {
         const token = localStorage.getItem('token'); // Get the token
-        const response = await axios.get('http://localhost:5000/user/check', {
+        const response = await axios.get('https://eduhub-backend-huep.onrender.com/user/check', {
           headers: {
             Authorization: `Bearer ${token}`, // Attach the JWT token here
           },
@@ -38,7 +38,7 @@ const StudentsList = () => {
   const fetchStudents = async () => {
     try {
       const token = localStorage.getItem('token'); // Get the token
-      const response = await axios.get('http://localhost:5000/superadmin/students', {
+      const response = await axios.get('https://eduhub-backend-huep.onrender.com/superadmin/students', {
         headers: {
           Authorization: `Bearer ${token}`, // Attach the JWT token here
         },
@@ -54,7 +54,7 @@ const StudentsList = () => {
   const deleteStudent = async (id) => {
     try {
       const token = localStorage.getItem('token'); // Get the token
-      const response = await axios.delete(`http://localhost:5000/superadmin/students/${id}`, {
+      const response = await axios.delete(`https://eduhub-backend-huep.onrender.com/superadmin/students/${id}`, {
         headers: {
           Authorization: `Bearer ${token}`, // Attach the JWT token here
         },

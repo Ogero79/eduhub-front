@@ -32,7 +32,7 @@ const Notifications = () => {
           navigate("/login");
           return;
         }
-        const response = await axios.get("http://localhost:5000/dashboard", {
+        const response = await axios.get("https://eduhub-backend-huep.onrender.com/dashboard", {
           headers: { Authorization: `Bearer ${token}` },
         });
         const { role, year, semester, courseId } = response.data;
@@ -54,7 +54,7 @@ const Notifications = () => {
     const fetchNotifications = async () => {
       try {
         const response = await axios.get(
-          `http://localhost:5000/notifications/${courseId}?year=${year}&semester=${semester}`
+          `https://eduhub-backend-huep.onrender.com/notifications/${courseId}?year=${year}&semester=${semester}`
         );
         setNotifications(response.data.notifications);
       } catch (error) {
@@ -80,7 +80,7 @@ const Notifications = () => {
     if (!newNotification.trim()) return alert("Notification cannot be empty.");
 
     try {
-      await axios.post("http://localhost:5000/notifications", {
+      await axios.post("https://eduhub-backend-huep.onrender.com/notifications", {
         courseId,
         year,
         semester,
@@ -101,7 +101,7 @@ const Notifications = () => {
 
   const removeNotification = async (id) => {
     try {
-      await axios.delete(`http://localhost:5000/notifications/${id}`);
+      await axios.delete(`https://eduhub-backend-huep.onrender.com/notifications/${id}`);
       setNotifications(notifications.filter((n) => n.id !== id));
     } catch (error) {
       console.error('Error removing notification:', error);

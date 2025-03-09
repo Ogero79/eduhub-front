@@ -17,7 +17,7 @@ const Login = () => {
     try {
       // Send login request to the server with email and password
       const response = await axios.post(
-        'http://localhost:5000/login', 
+        'https://eduhub-backend-huep.onrender.com/login', 
         { email, password },
         { withCredentials: true } // Ensures cookies are sent with the request
       );

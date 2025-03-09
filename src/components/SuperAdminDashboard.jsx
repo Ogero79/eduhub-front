@@ -19,21 +19,21 @@ const SuperAdminDashboard = () => {
       try {
         const token = localStorage.getItem('token'); // Get the token
   
-        const resourcesRes = await axios.get("http://localhost:5000/superadmin/resources", {
+        const resourcesRes = await axios.get("https://eduhub-backend-huep.onrender.com/superadmin/resources", {
           headers: {
             Authorization: `Bearer ${token}`, // Attach the JWT token here
           },
         });
         setTotalResources(resourcesRes.data.totalResources);
   
-        const classRepsRes = await axios.get("http://localhost:5000/superadmin/classreps", {
+        const classRepsRes = await axios.get("https://eduhub-backend-huep.onrender.com/superadmin/classreps", {
           headers: {
             Authorization: `Bearer ${token}`, // Attach the JWT token here
           },
         });
         setTotalClassReps(classRepsRes.data.totalClassReps);
   
-        const studentsRes = await axios.get("http://localhost:5000/superadmin/students", {
+        const studentsRes = await axios.get("https://eduhub-backend-huep.onrender.com/superadmin/students", {
           headers: {
             Authorization: `Bearer ${token}`, // Attach the JWT token here
           },
@@ -55,7 +55,7 @@ const SuperAdminDashboard = () => {
     const checkRole = async () => {
       try {
         const token = localStorage.getItem('token'); // Get the token
-        const response = await axios.get("http://localhost:5000/user/check", {
+        const response = await axios.get("https://eduhub-backend-huep.onrender.com/user/check", {
           headers: {
             Authorization: `Bearer ${token}`, // Attach the JWT token here
           },

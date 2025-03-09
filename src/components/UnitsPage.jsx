@@ -31,7 +31,7 @@ const UnitsPage = () => {
           navigate("/login");
           return;
         }
-        const response = await axios.get("http://localhost:5000/dashboard", {
+        const response = await axios.get("https://eduhub-backend-huep.onrender.com/dashboard", {
           headers: { Authorization: `Bearer ${token}` },
         });
         const { role, year, semester, courseId, firstName } = response.data;
@@ -57,7 +57,7 @@ const UnitsPage = () => {
     const fetchUnits = async () => {
       try {
         const response = await axios.get(
-          `http://localhost:5000/units/${courseId}?year=${year}&semester=${semester}`
+          `https://eduhub-backend-huep.onrender.com/units/${courseId}?year=${year}&semester=${semester}`
         );
         setUnits(response.data);
       } catch (error) {
@@ -80,7 +80,7 @@ const UnitsPage = () => {
     };
     try {
       const response = await axios.post(
-        "http://localhost:5000/units",
+        "https://eduhub-backend-huep.onrender.com/units",
         unitData
       );
       setUnits([response.data.unit, ...units]);

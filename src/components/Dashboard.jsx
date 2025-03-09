@@ -42,7 +42,7 @@ const Dashboard = () => {
           navigate("/login");
           return;
         }
-        const response = await axios.get("http://localhost:5000/dashboard", {
+        const response = await axios.get("https://eduhub-backend-huep.onrender.com/dashboard", {
           headers: { Authorization: `Bearer ${token}` },
         });
         const { id, role, year, semester, courseId } = response.data;
@@ -68,7 +68,7 @@ const Dashboard = () => {
     if (!courseId || !year || !semester || !studentId) return;
     try {
       const response = await axios.get(
-        `http://localhost:5000/feeds/${courseId}?year=${year}&semester=${semester}&studentId=${studentId}`,
+        `https://eduhub-backend-huep.onrender.com/feeds/${courseId}?year=${year}&semester=${semester}&studentId=${studentId}`,
         {
           headers: { Authorization: `Bearer ${token}` },
         }
@@ -97,7 +97,7 @@ const Dashboard = () => {
       }
 
       const response = await axios.post(
-        `http://localhost:5000/feeds/react`,
+        `https://eduhub-backend-huep.onrender.com/feeds/react`,
         { feedId, action, studentId },
         { headers: { Authorization: `Bearer ${token}` } }
       );
@@ -126,7 +126,7 @@ const Dashboard = () => {
     try {
       setUploading(true);
       setUploadProgress(0);
-      await axios.post("http://localhost:5000/feeds", formData, {
+      await axios.post("https://eduhub-backend-huep.onrender.com/feeds", formData, {
         headers: {
           "Content-Type": "multipart/form-data",
           Authorization: `Bearer ${token}`,
@@ -155,7 +155,7 @@ const Dashboard = () => {
   const handleEdit = async () => {
     try {
       await axios.put(
-        `http://localhost:5000/feeds/${currentPost.feed_id}`,
+        `https://eduhub-backend-huep.onrender.com/feeds/${currentPost.feed_id}`,
         { description: editPost.description },
         {
           headers: { Authorization: `Bearer ${token}` },
@@ -178,7 +178,7 @@ const Dashboard = () => {
 
     try {
       const response = await axios.delete(
-        `http://localhost:5000/feeds/${feedId}`,
+        `https://eduhub-backend-huep.onrender.com/feeds/${feedId}`,
         {
           headers: { Authorization: `Bearer ${token}` },
         }

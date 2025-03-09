@@ -45,7 +45,7 @@ const Register = () => {
     try {
       const token = localStorage.getItem('token'); // Get the token
   
-      const response = await axios.post('http://localhost:5000/register', {
+      const response = await axios.post('https://eduhub-backend-huep.onrender.com/register', {
         email,
         password,
         first_name: formattedFirstName,
