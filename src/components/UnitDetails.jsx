@@ -517,12 +517,13 @@ const UnitDetails = () => {
                 onChange={(e) =>
                   setNewResource({ ...newResource, title: e.target.value })
                 }
+                required
               />
             </Form.Group>
 
             {/* Description Input */}
             <Form.Group className="mb-3">
-              <Form.Label>Description</Form.Label>
+              <Form.Label>Description (optional)</Form.Label>
               <Form.Control
                 as="textarea"
                 rows={3}
