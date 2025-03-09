@@ -7,10 +7,36 @@ import BottomNav from "./BottomNav";
 
 const Settings = () => {
   const navigate = useNavigate();
+  const token = localStorage.getItem("token");
+  const [firstName, setFirstName] = useState("");
+  const [lastName, setLastName] = useState("");
+  const [course, setCourse] = useState("");
 
   const handleNavigation = (path) => {
     navigate(path);
   };
+
+  useEffect(() => {
+    const fetchUserInfo = async () => {
+      try {
+        if (!token) {
+          navigate("/login");
+          return;
+        }
+        const response = await axios.get("https://eduhub-backend-huep.onrender.com/dashboard", {
+          headers: { Authorization: `Bearer ${token}` },
+        });
+        const { firstName, lastName, course } = response.data;
+        setFirstName(firstName);
+        setLastName(lastName);
+        setCourse(course);
+      } catch (err) {
+        navigate("/login");
+      }
+    };
+
+    fetchUserInfo();
+  }, [navigate, token]);
 
   return (
     <>
@@ -19,9 +45,10 @@ const Settings = () => {
       <div className="profile-section d-flex align-items-center py-4 px-3 mb-4 bg-light rounded-3">
         <div className="flex-grow-1">
           <h5 className="fw-bold mb-0 d-flex align-items-center">
-            brian Ogero
+            <i className="bi bi-person me-2" style={{ fontSize: '1.5rem' }}></i>
+            {firstName} {lastName}
           </h5>
-          <p className="text-muted mb-0">computer</p>
+          <p className="text-muted mb-0">{course}</p>
         </div>
         <Button
           variant="outline-primary"
