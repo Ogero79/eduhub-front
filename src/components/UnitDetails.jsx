@@ -177,8 +177,7 @@ const UnitDetails = () => {
   
       alert("Resource added successfully!");
       setNewResource({ title: "", description: "", file: null });
-      setShowAddResourceModal(false);
-      fetchData(); // Refetch resources after adding a new resource
+      fetchData(); 
     } catch (error) {
       console.error("Error adding resource:", error);
       alert("Failed to add resource.");
@@ -284,7 +283,7 @@ const UnitDetails = () => {
           <div className="d-flex align-items-center mb-4">
             <Button
               variant="link"
-              onClick={() => navigate(-1)}
+              onClick={() => navigate('/student/units')}
               className="p-0 me-3"
               style={{ color: "black" }}
             >

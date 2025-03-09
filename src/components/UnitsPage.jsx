@@ -85,9 +85,11 @@ const UnitsPage = () => {
     try {
       const response = await axios.post("https://eduhub-backend-huep.onrender.com/units", unitData);
       setUnits([response.data.unit, ...units]);
-      setAddUnitLoading(false); // Stop loading
-      // You may want to clear form fields here if needed
-      handleClose(); // Close the modal or form after submission
+      setAddUnitLoading(false); 
+      setSelectedUnitId(null);
+      setUnitName("");
+      setUnitCode("");
+      setUnitLecturer("");
     } catch (error) {
       setError("Failed to save unit");
       setAddUnitLoading(false); // Stop loading even if there's an error
