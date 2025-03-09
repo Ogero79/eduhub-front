@@ -144,7 +144,7 @@ const UnitDetails = () => {
   };
   
   const handleAddResource = async () => {
-    if (!newResource.file) {
+    if (!newResource.file || !newResource.title) {
       alert("Please select a file to upload.");
       return;
     }
@@ -517,7 +517,6 @@ const UnitDetails = () => {
                 onChange={(e) =>
                   setNewResource({ ...newResource, title: e.target.value })
                 }
-                required
               />
             </Form.Group>
 
