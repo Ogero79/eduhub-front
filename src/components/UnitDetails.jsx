@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from "react";
+import React, { useRef, useState, useEffect } from "react";
 import { useParams, useNavigate } from "react-router-dom";
 import {
   Container,
@@ -17,6 +17,7 @@ import axios from "axios";
 const UnitDetails = () => {
   const { unitId } = useParams();
   const navigate = useNavigate();
+  const fileInputRef = useRef(null);
   const [unit, setUnit] = useState(null);
   const [loading, setLoading] = useState(true);
   const [selectedResource, setSelectedResource] = useState("Notes");
@@ -177,6 +178,9 @@ const UnitDetails = () => {
   
       alert("Resource added successfully!");
       setNewResource({ title: "", description: "", file: null });
+      if (fileInputRef.current) {
+        fileInputRef.current.value = "";
+      }
       fetchData(); 
     } catch (error) {
       console.error("Error adding resource:", error);
@@ -537,6 +541,7 @@ const UnitDetails = () => {
               <Form.Label>Upload File</Form.Label>
               <Form.Control
                 type="file"
+                ref={fileInputRef} 
                 onChange={(e) =>
                   setNewResource({ ...newResource, file: e.target.files[0] })
                 }
