@@ -264,7 +264,11 @@ const UnitDetails = () => {
         className="d-flex justify-content-center align-items-center"
         style={{ height: "100vh" }}
       >
-        <Spinner animation="border" variant="primary" />
+        <Spinner
+          animation="border"
+          variant="primary"
+          style={{ height: "80px", width: "80px" }}
+        />
       </div>
     );
   }

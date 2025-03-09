@@ -33,7 +33,7 @@ const Notifications = () => {
           return;
         }
         const response = await axios.get("https://eduhub-backend-huep.onrender.com/dashboard", {
-          headers: { Authorization: `Bearer ${token}` },
+          headers: { Authorization: `Bearer ${token}` }, 
         });
         const { role, year, semester, courseId } = response.data;
         setYear(year);

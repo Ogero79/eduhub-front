@@ -55,18 +55,15 @@ const ResourcesList = () => {
   }, [navigate]);
   
   
-  const deleteResource = async (id) => {
+  const deleteResource = async (resource_id) => {
     try {
       const token = localStorage.getItem('token'); // Get the token
-      const response = await axios.delete(`https://eduhub-backend-huep.onrender.com/superadmin/resources/${id}`, {
+      const response = await axios.delete(`https://eduhub-backend-huep.onrender.com/resources/${resource_id}`, {
         headers: {
           Authorization: `Bearer ${token}`, // Attach the JWT token here
         },
       });
-      console.log(response.data); // Log the response (success message)
-      
-      // Remove the deleted resource from the state
-      setResources(resources.filter(resource => resource.id !== id));
+      setResources(resources.filter(resource => resource.resource_id !== resource_id));
     } catch (error) {
       console.error('Error deleting resource:', error);
       setError('Error deleting resource');
@@ -91,35 +88,17 @@ const ResourcesList = () => {
             <tr>
               <th scope="col">#</th>
               <th scope="col">Title</th>
-              <th scope="col">Description</th>
-              <th scope="col">Unit</th>
-              <th scope="col">File</th>
             </tr>
           </thead>
           <tbody>
             {resources.map((resource, index) => (
-              <tr key={resource.id}>
+              <tr key={resource.resource_id}>
                 <th scope="row">{index + 1}</th>
                 <td>{resource.title}</td>
-                <td>{resource.resource_type}</td>
-                <td>{resource.unitcode}</td>
-                <td>
-                    {resource.file_url && (
-                      <a
-                        href={resource.file_url}
-                        target="_blank"
-                        rel="noopener noreferrer"
-                        className="btn btn-primary btn-sm"
-                        download
-                      >
-                        Download
-                      </a>
-                    )}
-                  </td>
                   <td>
                     <button
                       className="btn btn-danger btn-sm"
-                      onClick={() => deleteResource(resource.id)} // Trigger the delete on button click
+                      onClick={() => deleteResource(resource.resource_id)} // Trigger the delete on button click
                     >
                       Delete
                     </button>
