@@ -44,9 +44,7 @@ const UnitsPage = () => {
       } catch (err) {
         setError("Please log in to view the dashboard.");
         navigate("/login");
-      } finally {
-        setLoading(false);
-      }
+      } 
     };
 
     fetchUserInfo();
@@ -63,6 +61,8 @@ const UnitsPage = () => {
         setUnits(response.data);
       } catch (error) {
         setError("Failed to fetch units");
+      } finally {
+        setLoading(false);
       }
     };
 
@@ -80,7 +80,7 @@ const UnitsPage = () => {
       courseId,
     };
 
-    setAddUnitLoading(true); // Start loading
+    setAddUnitLoading(true); 
 
     try {
       const response = await axios.post("https://eduhub-backend-huep.onrender.com/units", unitData);
@@ -92,7 +92,7 @@ const UnitsPage = () => {
       setUnitLecturer("");
     } catch (error) {
       setError("Failed to save unit");
-      setAddUnitLoading(false); // Stop loading even if there's an error
+      setAddUnitLoading(false); 
     }
   };
 

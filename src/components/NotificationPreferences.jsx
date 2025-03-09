@@ -21,7 +21,7 @@ const NotificationPreferences = () => {
               <Button variant="link" onClick={() => navigate(-1)} className="p-0 me-3" style={{color:'black'}}>
               <i className="bi bi-arrow-left back-btn" style={{ fontSize: '2rem' }}></i>
               </Button>
-              <h2 className="mb-0">Notification Prefernces</h2>
+              <h2 className="mb-0">Notification Preferences</h2>
             </div>
       {success && <Alert variant="success">Notification preferences updated successfully!</Alert>}
 
