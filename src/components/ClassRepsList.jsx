@@ -24,7 +24,7 @@ const ClassRepsList = () => {
         }
   
         // Send token in the Authorization header
-        const response = await axios.get('https://eduhub-backend-huep.onrender.com/user/check', {
+        const response = await axios.get('http://localhost:5000/user/check', {
           headers: {
             Authorization: `Bearer ${token}`, // Attach the JWT to the request
           },
@@ -48,7 +48,7 @@ const ClassRepsList = () => {
   // Fetch class representatives from the database
   const fetchClassReps = async () => {
     try {
-      const response = await axios.get('https://eduhub-backend-huep.onrender.com/superadmin/classreps', {
+      const response = await axios.get('http://localhost:5000/superadmin/classreps', {
         headers: {
           Authorization: `Bearer ${localStorage.getItem('token')}`, // Add JWT to request header
         },
@@ -63,7 +63,7 @@ const ClassRepsList = () => {
   // Delete class rep function
   const deleteClassRep = async (id) => {
     try {
-      const response = await axios.delete(`https://eduhub-backend-huep.onrender.com/superadmin/classreps/${id}`, {
+      const response = await axios.delete(`http://localhost:5000/superadmin/classreps/${id}`, {
         headers: {
           Authorization: `Bearer ${localStorage.getItem('token')}`, // Add JWT to request header
         },

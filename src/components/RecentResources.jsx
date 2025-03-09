@@ -71,7 +71,7 @@ const RecentResources = () => {
         const token = localStorage.getItem('token'); // Get the token
   
         const response = await axios.get(
-          "https://eduhub-backend-huep.onrender.com/student/recent-resources",
+          "http://localhost:5000/student/recent-resources",
           {
             headers: {
               Authorization: `Bearer ${token}`, // Attach the JWT token here
@@ -95,7 +95,7 @@ const RecentResources = () => {
         const token = localStorage.getItem('token'); // Get the token
   
         const response = await axios.get(
-          "https://eduhub-backend-huep.onrender.com/user/check",
+          "http://localhost:5000/user/check",
           {
             headers: {
               Authorization: `Bearer ${token}`, // Attach the JWT token here

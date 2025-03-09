@@ -3,8 +3,7 @@ import { useNavigate } from "react-router-dom";
 import axios from "axios";
 import { Form, Button, Spinner, Alert } from "react-bootstrap";
 import StudentNavbar from "./StudentNavbar";
-import AdminRepNavbar from "./AdminRepNavbar";
-import { courses, years, semesters, resourceTypes } from '../utils/constants';
+import { useCourses, years, semesters } from "../utils/constants";
 
 const EditProfile = () => {
   const [formData, setFormData] = useState({
@@ -14,94 +13,46 @@ const EditProfile = () => {
     year: "",
     semester: "",
   });
-  const [course, setCourse] = useState(); // Available courses
-  const [year, setYear] = useState(); // Available years
-  const [semester, setSemester] = useState(''); // Available semesters
   const [loading, setLoading] = useState(true);
-  const [role, setRole] = useState(null); // Store user role
   const [error, setError] = useState(null);
   const [success, setSuccess] = useState(null);
   const navigate = useNavigate();
+  const { courses } = useCourses();
 
   useEffect(() => {
-    // Function to fetch user profile data
     const fetchUserProfile = async () => {
       try {
-        // Retrieve the JWT token from localStorage (or sessionStorage)
-        const token = localStorage.getItem('token'); // Or sessionStorage if needed
-  
-        // If token is missing, set an error and redirect to login
+        const token = localStorage.getItem("token");
+
         if (!token) {
           setError("Please log in to view your profile.");
           navigate("/login");
           return;
         }
-  
-        // Make the GET request to fetch user profile data, including the token in the Authorization header
-        const response = await axios.get("https://eduhub-backend-huep.onrender.com/user/profile", {
+
+        const response = await axios.get("http://localhost:5000/user/profile", {
           headers: {
-            Authorization: `Bearer ${token}`, // Attach the JWT token to the request
+            Authorization: `Bearer ${token}`,
           },
           withCredentials: true,
         });
-  
-        // Pre-fill form with user data
-        const { firstName, lastName, course, year, semester } = response.data;
-        setFormData({ firstName, lastName, course, year, semester });
+
+        setFormData(response.data);
       } catch (err) {
         setError("Failed to load profile data.");
       } finally {
         setLoading(false);
       }
     };
-  
-    // Function to check user role and fetch profile data
-    const checkRole = async () => {
-      try {
-        const token = localStorage.getItem('token'); // Retrieve the token from localStorage
-  
-        // If token is missing, redirect to login
-        if (!token) {
-          setError("Please log in to verify your role.");
-          navigate("/login");
-          return;
-        }
-  
-        // Verify the user role with the token in the Authorization header
-        const response = await axios.get("https://eduhub-backend-huep.onrender.com/user/check", {
-          headers: {
-            Authorization: `Bearer ${token}`, // Attach the JWT token to the request
-          },
-          withCredentials: true, // Ensure cookies are sent with the request
-        });
-  
-        const userRole = response.data.role;
-        setRole(userRole); // Store the user role
-  
-        // Proceed with fetching the profile if role is valid
-        if (["admin", "classRep", "student"].includes(userRole)) {
-          fetchUserProfile(); // Fetch profile based on role
-        } else {
-          navigate("/login"); // Redirect to login if not authorized
-        }
-      } catch (err) {
-        setError("Error verifying user role or user is not authorized");
-        console.error(err);
-        navigate("/login"); // Redirect to login if the request fails
-      }
-    };
-  
-    checkRole();
-  }, [navigate]);
-  
 
-  // Handle form input changes
+    fetchUserProfile();
+  }, [navigate]);
+
   const handleInputChange = (e) => {
     const { name, value } = e.target;
     setFormData((prev) => ({ ...prev, [name]: value }));
   };
 
-  // Capitalize the first letter of firstName and lastName
   const capitalizeNames = (firstName, lastName) => {
     return {
       firstName: firstName.charAt(0).toUpperCase() + firstName.slice(1),
@@ -109,61 +60,51 @@ const EditProfile = () => {
     };
   };
 
-  // Handle form submission
   const handleFormSubmit = async (e) => {
     e.preventDefault();
     setError(null);
     setSuccess(null);
-  
-    // Capitalize first and last names
-    const { firstName, lastName } = capitalizeNames(formData.firstName, formData.lastName);
-  
-    // Prepare the data to send, remove course, year, semester for admin
-    const updatedData = role === "admin" 
-      ? { firstName, lastName } 
-      : { firstName, lastName, course: formData.course, year: formData.year, semester: formData.semester };
-  
+
+    const { firstName, lastName } = capitalizeNames(
+      formData.firstName,
+      formData.lastName
+    );
+
     try {
-      // Retrieve the JWT token from localStorage (or sessionStorage if needed)
-      const token = localStorage.getItem('token'); // Or sessionStorage if you prefer
-  
-      // If token is missing, set an error and redirect to login
+      const token = localStorage.getItem("token");
+
       if (!token) {
         setError("Please log in to update your profile.");
         navigate("/login");
         return;
       }
-  
-      // Make the PUT request to update the profile, including the token in the Authorization header
-      await axios.put("https://eduhub-backend-huep.onrender.com/user/profile", updatedData, {
-        headers: {
-          Authorization: `Bearer ${token}`, // Attach the JWT token to the request
-        },
-        withCredentials: true,
-      });
-  
-      setSuccess("Profile updated successfully.");
+
+      const response = await axios.put(
+        "http://localhost:5000/user/profile",
+        { ...formData, firstName, lastName },
+        {
+          headers: {
+            Authorization: `Bearer ${token}`,
+          },
+          withCredentials: true,
+        }
+      );
+
+      setSuccess(response.data.message);
+      localStorage.setItem("token", response.data.token);
       setTimeout(() => navigate("/profile"), 2000);
     } catch (err) {
       setError("Failed to update profile. Please try again.");
       console.error(err);
     }
   };
-  
-  // Render navbar based on user role
-  const renderNavbar = () => {
-    if (role === "admin" || role === "classRep") {
-      return <AdminRepNavbar />; // Render admin/classRep navbar
-    }
-    if (role === "student") {
-      return <StudentNavbar />; // Render student navbar
-    }
-    return null; // No navbar for unauthorized roles
-  };
 
   if (loading) {
     return (
-      <div className="d-flex justify-content-center align-items-center" style={{ height: "100vh" }}>
+      <div
+        className="d-flex justify-content-center align-items-center"
+        style={{ height: "100vh" }}
+      >
         <Spinner animation="border" variant="primary" />
       </div>
     );
@@ -171,9 +112,19 @@ const EditProfile = () => {
 
   return (
     <>
-      {renderNavbar()} {/* Render navbar based on user role */}
+      <StudentNavbar />
       <div className="container my-5">
-        <h2 className="text-center mb-4">Edit Profile</h2>
+        <div className="d-flex align-items-center mb-4">
+          <Button
+            variant="link"
+            onClick={() => navigate(-1)}
+            className="p-0 me-3"
+            style={{ color: "black" }}
+          >
+            <i className="bi bi-arrow-left back-btn" style={{ fontSize: "2rem" }}></i>
+          </Button>
+          <h2 className="mb-0">Edit Profile</h2>
+        </div>
         {error && <Alert variant="danger">{error}</Alert>}
         {success && <Alert variant="success">{success}</Alert>}
 
@@ -200,60 +151,50 @@ const EditProfile = () => {
             />
           </Form.Group>
 
-          {role !== "admin" && (
-            <>
-              <Form.Group className="mb-3">
-                <Form.Label>Course</Form.Label>
-                <Form.Control
-                  as="select"
-                  name="course"
-                  value={formData.course}
-                  onChange={handleInputChange}
-                  required
-                >
-                  {courses.map((course, index) => (
-                    <option key={index} value={course}>
-                      {course}
-                    </option>
-                  ))}
-                </Form.Control>
-              </Form.Group>
+          <Form.Group className="mb-3">
+            <Form.Label>Course</Form.Label>
+            <Form.Control
+              as="select"
+              name="course"
+              value={formData.course}
+              onChange={handleInputChange}
+              required
+            >
+              {courses.map((course, index) => (
+                <option key={index} value={course}>{course}</option>
+              ))}
+            </Form.Control>
+          </Form.Group>
 
-              <Form.Group className="mb-3">
-                <Form.Label>Year</Form.Label>
-                <Form.Control
-                  as="select"
-                  name="year"
-                  value={formData.year}
-                  onChange={handleInputChange}
-                  required
-                >
-                  {years.map((year, index) => (
-                    <option key={index} value={year}>
-                      Year {year}
-                    </option>
-                  ))}
-                </Form.Control>
-              </Form.Group>
+          <Form.Group className="mb-3">
+            <Form.Label>Year</Form.Label>
+            <Form.Control
+              as="select"
+              name="year"
+              value={formData.year}
+              onChange={handleInputChange}
+              required
+            >
+              {years.map((year, index) => (
+                <option key={index} value={year}>Year {year}</option>
+              ))}
+            </Form.Control>
+          </Form.Group>
 
-              <Form.Group className="mb-3">
-                <Form.Label>Semester</Form.Label>
-                <Form.Control
-                  as="select"
-                  name="semester"
-                  value={formData.semester}
-                  onChange={handleInputChange}
-                  required
-                >
-                  {semesters.map((semester, index) => (
-                    <option key={index} value={semester}>
-                      Semester {semester}
-                    </option>
-                  ))}
-                </Form.Control>
-              </Form.Group>
-            </>
-          )}
+          <Form.Group className="mb-3">
+            <Form.Label>Semester</Form.Label>
+            <Form.Control
+              as="select"
+              name="semester"
+              value={formData.semester}
+              onChange={handleInputChange}
+              required
+            >
+              {semesters.map((semester, index) => (
+                <option key={index} value={semester}>Semester {semester}</option>
+              ))}
+            </Form.Control>
+          </Form.Group>
 
           <div className="text-center">
             <Button variant="primary" type="submit" className="mt-3">

@@ -17,7 +17,7 @@ const Login = () => {
     try {
       // Send login request to the server with email and password
       const response = await axios.post(
-        'https://eduhub-backend-huep.onrender.com/login', 
+        'http://localhost:5000/login', 
         { email, password },
         { withCredentials: true } // Ensures cookies are sent with the request
       );
@@ -67,6 +67,9 @@ const Login = () => {
               onChange={(e) => setPassword(e.target.value)}
               required
             />
+          </div>
+                    <div className="text-end mb-3">
+                    <Link to="/forgot-password" style={{textDecoration:'none'}}>Forgot password?</Link>
           </div>
           <button type="submit" className="btn btn-primary">Login</button>
         </form>

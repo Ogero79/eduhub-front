@@ -23,7 +23,7 @@ const Sidebar = () => {
       const checkRole = async () => {
         try {
           const token = localStorage.getItem('token'); // Get the token
-          const response = await axios.get("https://eduhub-backend-huep.onrender.com/user/check", {
+          const response = await axios.get("http://localhost:5000/user/check", {
             headers: {
               Authorization: `Bearer ${token}`, // Attach the JWT token here
             },
@@ -66,12 +66,6 @@ const Sidebar = () => {
           </Link>
         </li>
         <li>
-          <Link to="/superadmin/admins" className="nav-link text-white">
-          <FaUserCog/>
-            {!isCollapsed && <span className="ms-2">Manage Admins</span>}
-          </Link>
-        </li>
-        <li>
           <Link to="/superadmin/classreps" className="nav-link text-white">
           <FaUserTie/>
             {!isCollapsed && <span className="ms-2">Manage Class Reps</span>}
@@ -87,6 +81,12 @@ const Sidebar = () => {
           <Link to="/superadmin/resources" className="nav-link text-white">
             <FaBook/>
             {!isCollapsed && <span className="ms-2">Manage Resources</span>}
+          </Link>
+        </li>
+        <li>
+          <Link to="/superadmin/courses" className="nav-link text-white">
+            <FaBook/>
+            {!isCollapsed && <span className="ms-2">Manage Courses</span>}
           </Link>
         </li>
         <li>

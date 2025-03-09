@@ -5,24 +5,29 @@ import Login from './components/Login';
 import SuperAdminDashboard from './components/SuperAdminDashboard';
 import Dashboard from './components/Dashboard'; // Regular user dashboard (student)
 import Register from './components/Register';
-import CreateAdmin from './components/CreateAdmin';
 import AddClassRep from './components/AddClassRep';
-import AddResource from './components/AddResource';
-import ClassRepDashboard from './components/ClassRepDashboard';
-import AdminDashboard from './components/AdminDashboard';
 import StudentsList from './components/StudentsList';
-import AdminsList from './components/AdminsList';
 import ClassRepsList from './components/ClassRepsList';
 import ResourcesList from './components/ResourcesList';
 import 'bootstrap/dist/css/bootstrap.min.css';
 import "bootstrap/dist/js/bootstrap.bundle.min.js";
-import AllStudentNotes from './components/AllStudentNotes';
-import AllStudentPapers from './components/AllStudentPapers';
-import AllStudentTasks from './components/AllStudentTasks';
 import Profile from './components/Profile';
-import ContactUs from './components/ContactUs';
-import EditProfile from './components/EditProfile'
-import CheckToken from './components/CheckToken';
+import EditProfile from './components/EditProfile';
+import Courses from './components/Courses';
+import UnitDetails from './components/UnitDetails';
+import UnitsPage from './components/UnitsPage';
+import Calendar from './components/Calendar';
+import Settings from './components/Settings';
+import Notifications from './components/Notifications';
+import Account from './components/Account';
+import Theme from './components/Theme';
+import NotificationPreferences from './components/NotificationPreferences';
+import Help from './components/Help';
+import Feedback from './components/Feedback';
+import BuyMeCoffee from './components/BuyMeCoffee';
+import AddPost from './components/AddPost';
+import ForgotPassword from './components/ForgotPassword';
+import ResetPassword from './components/ResetPassword';
 
 
 
@@ -33,27 +38,29 @@ const App = () => {
         <Route path="/" element={<Home />} />
         <Route path="/login" element={<Login />} />
         <Route path="/superadmin" element={<SuperAdminDashboard />} />
-        <Route path="/classrep/dashboard" element={<ClassRepDashboard />} />
-        <Route path="/admin/dashboard" element={<AdminDashboard />} />
         <Route path="/dashboard" element={<Dashboard />} />
         <Route path="/register" element={<Register />} />
-        <Route path="/superadmin/create-admin" element={<CreateAdmin />} />
         <Route path="/superadmin/create-class-rep" element={<AddClassRep />} />
-        <Route path="/admin/add-resource" element={<AddResource />} />
-        <Route path="/superadmin/add-resource" element={<AddResource />} />
-        <Route path="/classrep/add-resource" element={<AddResource />} />
         <Route path="/superadmin/students" element={<StudentsList />} />
-        <Route path="/superadmin/admins" element={<AdminsList />} />
         <Route path="/superadmin/classreps" element={<ClassRepsList />} />
         <Route path="/superadmin/resources" element={<ResourcesList />} />
-        <Route path="/all-notes-resources" element={<AllStudentNotes />} />
-        <Route path="/all-papers-resources" element={<AllStudentPapers />} />
-        <Route path="/all-tasks-resources" element={<AllStudentTasks />} />
         <Route path="/profile" element={<Profile />} />
-        <Route path="/contact" element={<ContactUs />} />
         <Route path="/edit-profile" element={<EditProfile />} />
-        <Route path="/check" element={<CheckToken />} />
-
+        <Route path="/superadmin/courses" element={<Courses />} />
+        <Route path="/unit/:unitId" element={<UnitDetails />} />
+        <Route path="/student/units" element={<UnitsPage />} />
+        <Route path="/student/calendar" element={<Calendar />} />
+        <Route path="/student/settings" element={<Settings />} />
+        <Route path="/notifications" element={<Notifications />} />
+        <Route path="/account" element={<Account />} />
+        <Route path="/theme" element={<Theme />} />
+        <Route path="/notification-preferences" element={<NotificationPreferences />} />
+        <Route path="/user/help" element={<Help />} />
+        <Route path="/feedback" element={<Feedback />} />
+        <Route path="/buy-me-coffee" element={<BuyMeCoffee />} />
+        <Route path="/add-post" element={<AddPost />} />
+        <Route path="/forgot-password" element={<ForgotPassword />} />
+        <Route path="/reset-password/:token" element={<ResetPassword />} />
       </Routes>
     </Router>
   );

@@ -1,9 +1,9 @@
 import React, { useState } from 'react';
-import { useNavigate } from 'react-router-dom';
+import { useNavigate, Link } from 'react-router-dom';
 import axios from 'axios';
-import { Link } from 'react-router-dom';
-import { courses, years, semesters, genders } from '../utils/constants';
-import '../styles/Register.css'; // Import the scoped CSS for the Register page
+import { years, semesters, genders, useCourses } from '../utils/constants';
+import '../styles/Register.css'; 
+import { Spinner } from 'react-bootstrap';
 
 const Register = () => {
   const [email, setEmail] = useState('');
@@ -18,7 +18,15 @@ const Register = () => {
   const [error, setError] = useState('');
   const [success, setSuccess] = useState('');
   const navigate = useNavigate();
+  const { courses, loading } = useCourses();
 
+  if (loading) {
+    return (
+      <div className="d-flex justify-content-center align-items-center" style={{ height: "100vh" }}>
+        <Spinner animation="border" variant="primary" style={{width: "80px", height:"80px"}}/>
+      </div>
+    ); // Display loading spinner while data is being fetched
+  }
 
   // Handle form submission
   const handleSubmit = async (e) => {
@@ -37,7 +45,7 @@ const Register = () => {
     try {
       const token = localStorage.getItem('token'); // Get the token
   
-      const response = await axios.post('https://eduhub-backend-huep.onrender.com/register', {
+      const response = await axios.post('http://localhost:5000/register', {
         email,
         password,
         first_name: formattedFirstName,
@@ -58,11 +66,10 @@ const Register = () => {
         navigate('/login');
       }, 2000);
     } catch (err) {
-      setError(err.response.data.message || 'Error registering user');
+      setError(err.response?.data?.message || 'Error registering user');
       console.error('Error registering:', err);
     }
   };
-  
 
   return (
     <div className="register-container">
@@ -103,9 +110,9 @@ const Register = () => {
                 required
               >
                 <option value="">Select Year</option>
-                {years.map((year, index) => (
-                  <option key={index} value={year}>
-                    Year {year}
+                {years.map((item, index) => (
+                  <option key={index} value={item?.value || item}>
+                    {item?.label || `Year ${item}`}
                   </option>
                 ))}
               </select>
@@ -119,9 +126,9 @@ const Register = () => {
                 required
               >
                 <option value="">Select Semester</option>
-                {semesters.map((semester, index) => (
-                  <option key={index} value={semester}>
-                    Semester {semester}
+                {semesters.map((item, index) => (
+                  <option key={index} value={item?.value || item}>
+                    {item?.label || `Semester ${item}`}
                   </option>
                 ))}
               </select>
@@ -136,9 +143,9 @@ const Register = () => {
               required
             >
               <option value="">Select your gender</option>
-              {genders.map((gender, index) => (
-                <option key={index} value={gender}>
-                  {gender}
+              {genders.map((item, index) => (
+                <option key={index} value={item?.value || item}>
+                  {item?.label || item}
                 </option>
               ))}
             </select>
@@ -153,8 +160,8 @@ const Register = () => {
             >
               <option value="">Select a course</option>
               {courses.map((course, index) => (
-                <option key={index} value={course}>
-                  {course}
+                <option key={index} value={course?.id || course}>
+                  {course?.name || course}
                 </option>
               ))}
             </select>

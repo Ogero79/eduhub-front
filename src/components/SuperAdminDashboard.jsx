@@ -8,7 +8,6 @@ const SuperAdminDashboard = () => {
   const [error, setError] = useState("");
   const navigate = useNavigate();
   const [totalResources, setTotalResources] = useState(0);
-  const [totalAdmins, setTotalAdmins] = useState(0);
   const [totalClassReps, setTotalClassReps] = useState(0);
   const [totalStudents, setTotalStudents] = useState(0);
   const [totalFemaleStudents, setTotalFemaleStudents] = useState(0);
@@ -20,28 +19,21 @@ const SuperAdminDashboard = () => {
       try {
         const token = localStorage.getItem('token'); // Get the token
   
-        const resourcesRes = await axios.get("https://eduhub-backend-huep.onrender.com/superadmin/resources", {
+        const resourcesRes = await axios.get("http://localhost:5000/superadmin/resources", {
           headers: {
             Authorization: `Bearer ${token}`, // Attach the JWT token here
           },
         });
         setTotalResources(resourcesRes.data.totalResources);
   
-        const adminsRes = await axios.get("https://eduhub-backend-huep.onrender.com/superadmin/admins", {
-          headers: {
-            Authorization: `Bearer ${token}`, // Attach the JWT token here
-          },
-        });
-        setTotalAdmins(adminsRes.data.totalAdmins);
-  
-        const classRepsRes = await axios.get("https://eduhub-backend-huep.onrender.com/superadmin/classreps", {
+        const classRepsRes = await axios.get("http://localhost:5000/superadmin/classreps", {
           headers: {
             Authorization: `Bearer ${token}`, // Attach the JWT token here
           },
         });
         setTotalClassReps(classRepsRes.data.totalClassReps);
   
-        const studentsRes = await axios.get("https://eduhub-backend-huep.onrender.com/superadmin/students", {
+        const studentsRes = await axios.get("http://localhost:5000/superadmin/students", {
           headers: {
             Authorization: `Bearer ${token}`, // Attach the JWT token here
           },
@@ -63,7 +55,7 @@ const SuperAdminDashboard = () => {
     const checkRole = async () => {
       try {
         const token = localStorage.getItem('token'); // Get the token
-        const response = await axios.get("https://eduhub-backend-huep.onrender.com/user/check", {
+        const response = await axios.get("http://localhost:5000/user/check", {
           headers: {
             Authorization: `Bearer ${token}`, // Attach the JWT token here
           },
@@ -104,14 +96,6 @@ const SuperAdminDashboard = () => {
             </div>
             <div className="superadmin-card-body">
               <strong>{totalClassReps}</strong>
-            </div>
-          </div>
-          <div className="superadmin-card">
-            <div className="superadmin-card-header">
-              <h5>Total Admins</h5>
-            </div>
-            <div className="superadmin-card-body">
-              <strong>{totalAdmins}</strong>
             </div>
           </div>
           <div className="superadmin-card">

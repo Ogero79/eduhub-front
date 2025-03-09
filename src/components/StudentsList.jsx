@@ -12,7 +12,7 @@ const StudentsList = () => {
     const checkRole = async () => {
       try {
         const token = localStorage.getItem('token'); // Get the token
-        const response = await axios.get('https://eduhub-backend-huep.onrender.com/user/check', {
+        const response = await axios.get('http://localhost:5000/user/check', {
           headers: {
             Authorization: `Bearer ${token}`, // Attach the JWT token here
           },
@@ -38,7 +38,7 @@ const StudentsList = () => {
   const fetchStudents = async () => {
     try {
       const token = localStorage.getItem('token'); // Get the token
-      const response = await axios.get('https://eduhub-backend-huep.onrender.com/superadmin/students', {
+      const response = await axios.get('http://localhost:5000/superadmin/students', {
         headers: {
           Authorization: `Bearer ${token}`, // Attach the JWT token here
         },
@@ -54,13 +54,11 @@ const StudentsList = () => {
   const deleteStudent = async (id) => {
     try {
       const token = localStorage.getItem('token'); // Get the token
-      const response = await axios.delete(`https://eduhub-backend-huep.onrender.com/superadmin/students/${id}`, {
+      const response = await axios.delete(`http://localhost:5000/superadmin/students/${id}`, {
         headers: {
           Authorization: `Bearer ${token}`, // Attach the JWT token here
         },
-      });
-      console.log(response.data); // Log the response (success message)
-      
+      });      
       // Remove the deleted resource from the state
       setStudents(students.filter(student => student.id !== id));
     } catch (error) {
