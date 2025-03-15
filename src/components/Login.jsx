@@ -1,43 +1,40 @@
-import React, { useState } from 'react';
-import { useNavigate, Link } from 'react-router-dom';  // Import Link for navigation
-import axios from 'axios';
-import '../styles/Login.css'; // Import custom CSS for styling
+import React, { useState } from "react";
+import { useNavigate, Link } from "react-router-dom";
+import axios from "axios";
+import "../styles/Login.css";
+import { Button, Spinner } from "react-bootstrap";
 
 const Login = () => {
-  const [email, setEmail] = useState('');
-  const [password, setPassword] = useState('');
-  const [error, setError] = useState('');
+  const [email, setEmail] = useState("");
+  const [password, setPassword] = useState("");
+  const [error, setError] = useState("");
   const navigate = useNavigate();
+  const [loading, setLoading] = useState(false);
 
-  // Handle form submission
   const handleSubmit = async (e) => {
     e.preventDefault();
     setError(null);
-  
+
     try {
-      // Send login request to the server with email and password
+      setLoading(true);
       const response = await axios.post(
-        'https://eduhub-backend-huep.onrender.com/login', 
+        "https://eduhub-backend-huep.onrender.com/login",
         { email, password },
-        { withCredentials: true } // Ensures cookies are sent with the request
+        { withCredentials: true }
       );
-  
-      // If login is successful, save the JWT token
+
       if (response.data.token) {
-        // Save JWT token to localStorage (or sessionStorage if you prefer)
-        localStorage.setItem('token', response.data.token);
-  
-        // Display a message and redirect based on the role
+        localStorage.setItem("token", response.data.token);
         const redirectTo = response.data.redirectTo;
-        navigate(redirectTo); // Redirect to appropriate dashboard
+        navigate(redirectTo);
       }
     } catch (err) {
-      // Display error message if login fails
-      setError('Invalid email or password');
-      console.error('Error logging in:', err);
+      setError("Invalid email or password");
+      console.error("Error logging in:", err);
+    } finally {
+      setLoading(false);
     }
   };
-  
 
   return (
     <div className="login-container">
@@ -68,15 +65,35 @@ const Login = () => {
               required
             />
           </div>
-                    <div className="text-end mb-3">
-                    <Link to="/forgot-password" style={{textDecoration:'none'}}>Forgot password?</Link>
+          <div className="text-end mb-3">
+            <Link to="/forgot-password" style={{ textDecoration: "none" }}>
+              Forgot password?
+            </Link>
           </div>
-          <button type="submit" className="btn btn-primary">Login</button>
+          <Button
+            type="submit"
+            className="w-100 btn btn-primary"
+            disabled={loading}
+          >
+            {loading ? (
+              <Spinner
+                as="span"
+                animation="border"
+                size="sm"
+                role="status"
+                aria-hidden="true"
+              />
+            ) : (
+              "Login"
+            )}
+          </Button>
         </form>
         {error && <div className="alert alert-danger mt-2">{error}</div>}
         {/* Add a link to the registration page */}
         <div className="register-link mt-3">
-          <p>Don't have an account? <Link to="/register">Register here</Link></p>
+          <p>
+            Don't have an account? <Link to="/register">Register here</Link>
+          </p>
         </div>
       </div>
     </div>
